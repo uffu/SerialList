@@ -3,11 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SerialList"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Serial Ports" Height="83.643" Width="107.792" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
+        Title="Serial Ports" Height="83.643" Width="107.792" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow" ResizeMode="CanMinimize" Topmost="True">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-        <CheckBox x:Name="onTop" Content="on top" Click="OnTop_Click"/>
+        <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="image.ico" Visibility="Hidden" TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick">
+            <tb:TaskbarIcon.TrayToolTip>
+                <Border Background="White">                 
+                    <TextBlock Text="{Binding Path=ToolTipText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+            </tb:TaskbarIcon.TrayToolTip>
+        </tb:TaskbarIcon>
+        <Button x:Name="minimize_btn" Content="Minimize" Height="20" Click="Minimize_btn_Click"/>
+        <CheckBox x:Name="onTop" Content="on top" Click="OnTop_Click" IsChecked="True"/>
         <TextBlock x:Name="textBox"></TextBlock>
+        
     </StackPanel>
 </Window>
