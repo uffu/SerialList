@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Serial Ports" Height="83.643" Width="107.792" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow" ResizeMode="CanMinimize" Topmost="True">
+        Title="Serial Ports" Height="83.643" Width="107.792" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow" ResizeMode="CanMinimize" Topmost="True" Loaded="Window_Loaded">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         <tb:TaskbarIcon x:Name="taskbarIcon" IconSource="image.ico" Visibility="Hidden" TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick">
             <tb:TaskbarIcon.TrayToolTip>

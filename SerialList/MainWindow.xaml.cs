@@ -33,34 +33,17 @@ namespace SerialList
             base.OnStateChanged(e);
         }
 
-        private List<string> known_ports = new List<string>();
-        private bool isThereNewPort()
-        {
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Length != known_ports.Count)
-                return true;
-          
-            foreach (string port in ports)
-            {
-                if (!known_ports.Contains(port))                
-                    return true;                
-            }
-            return false;
-        }
-
-        private void pop_up()
+        private string old_ports_str = "initial";
+        private void pop_up(string str)
         {
             if (WindowState != WindowState.Minimized)
                 return;
-            
-            if (!isThereNewPort())
+
+            if (old_ports_str.Equals(str))
                 return;
 
-            known_ports.Clear();
-            known_ports.AddRange(SerialPort.GetPortNames());
-            string str = "";
-            foreach (string port in known_ports)
-                str += port + "\r\n";
+            old_ports_str = str;
+
             if (str.Length == 0) str = "No com port";
             taskbarIcon.ShowBalloonTip("Ports", str, BalloonIcon.Info);
             taskbarIcon.ToolTipText = str;
@@ -72,7 +55,8 @@ namespace SerialList
             string[] ports = SerialPort.GetPortNames();
             foreach (string port in ports)
                 str += port + "\r\n";
-            Dispatcher.Invoke(new Action(() => { textBox.Text = str; pop_up(); }));
+            str = str.TrimEnd();
+            Dispatcher.Invoke(new Action(() => { textBox.Text = str; pop_up(str); }));
         }
 
         private void OnTop_Click(object sender, RoutedEventArgs e)
@@ -89,6 +73,11 @@ namespace SerialList
         {
             Show();
             WindowState = WindowState.Normal;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }
